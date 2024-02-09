@@ -39,7 +39,7 @@ namespace RunGroupWebApp.Repository
 
         public Task<Race> GetByIdAsync(int id)
         {
-            return _context.Races.FirstOrDefaultAsync(i=>i.Id==id);
+            return _context.Races.Include(i=>i.Address).FirstOrDefaultAsync(i=>i.Id==id);
         }
 
         public bool Save()

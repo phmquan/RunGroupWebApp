@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RunGroopWebApp.Data.Enum;
 
 using RunGroupWebApp.Data.Enum;
 using RunGroupWebApp.Data;

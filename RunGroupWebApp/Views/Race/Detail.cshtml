@@ -1,5 +1,4 @@
-﻿@model Club
-
+﻿@model Race
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -10,14 +9,14 @@
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
         Club Information
-       
+
     </h1>
 
     <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-8">
-            <img class="img-fluid" src="@Model.Image"  alt="" style="width:750px;height:500px">
+            <img class="img-fluid" src="@Model.Image" alt="">
         </div>
 
         <div class="col-md-4">
@@ -27,7 +26,7 @@
             <ul>
                 <li>@Model.Address.City</li>
                 <li>@Model.Address.State</li>
-                <li>@Model.ClubCategory</li>
+                <li>@Model.RaceCategory</li>
             </ul>
         </div>
 
@@ -37,7 +36,7 @@
     <h3 class="my-4">Related Projects</h3>
 
     <div class="row">
-        
+
         <div class="col-md-3 col-sm-6 mb-4">
             <a href="#">
                 <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
