@@ -63,5 +63,57 @@ namespace RunGroupWebApp.Controllers
             return View(raceVM);
             
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var race = await raceRepository.GetByIdAsync(id);
+            if (race == null) return View("Error");
+            var raceVM = new EditRaceViewModel
+            {
+                Title = race.Title,
+                Description = race.Description,
+                Address = race.Address,
+                Url = race.Image,
+                RaceCategory = race.RaceCategory
+
+            };
+            return View(raceVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditClubViewModel raceVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Update failed");
+                return View("Edit", raceVM);
+            }
+            var userRace = await raceRepository.GetByIdAsyncNoTracking(id);
+            if (userRace != null)
+            {
+                try
+                {
+                    await photo.DeletePhotoAsync(userRace.Image);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Could not delete photo");
+                    return View(raceVM);
+
+                }
+            }
+            var photoResult = await photo.AddPhotoAsync(raceVM.Image);
+            var race = new Race
+            {
+                Id = id,
+                Title = raceVM.Title,
+                Description = raceVM.Description,
+                Image = photoResult.Url.ToString(),
+                AddressId = raceVM.AddressId,
+                Address = raceVM.Address,
+
+            };
+            raceRepository.Update(race);
+            return RedirectToAction("Index");
+        }
     }
 }
+

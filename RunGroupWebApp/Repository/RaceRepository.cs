@@ -53,5 +53,10 @@ namespace RunGroupWebApp.Repository
             _context.Update(race);
             return Save();
         }
+
+        Task<Race> IRaceRepository.GetByIdAsyncNoTracking(int id)
+        {
+            return _context.Races.Include(i => i.Address).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+        }
     }
 }
